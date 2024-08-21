@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h1 class="card-title">{{ post.title }}</h1>
+                        <p class="card-text">{{ post.description }}</p>
+                        {% if post.file %}
+                            <img src="{{ asset('uploads/posts/' ~ post.file) }}" alt="{{ post.title }}" class="img-fluid mb-3 rounded">
+                        {% endif %}
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted">Type: {{ post.type }}</span>
+                            <span class="text-muted">Author: {{ post.user.email }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                {# Sección de comentarios #}
+                <div class="comments-section mt-4">
+                    <h3 class="mb-4">Comments</h3>
+                    {% if interactions is not empty %}
+                        <ul class="list-group">
+                            {% for interaction in interactions %}
+                                <li class="list-group-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <strong>{{ interaction.user.email }}</strong>
+                                        <span class="text-muted small">{{ interaction.comment|length }} characters</span>
+                                    </div>
+                                    <p class="mt-2">{{ interaction.comment }}</p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <div class="alert alert-info">
+                            No comments yet. Be the first to comment!
+                        </div>
+                    {% endif %}
+                </div>
+
+                {# Formulario para nuevo comentario #}
+                {% if form %}
+                    <div class="mt-4">
+                        <h4>Add a comment</h4>
+                        <div class="card">
+                            <div class="card-body">
+                                {{ form_start(form) }}
+                                    {{ form_widget(form.comment, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Write your comment here...'}}) }}
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning mt-4">
+                        You need to log in to add a comment. <a href="{{ path('app_login') }}">Login</a> or <a href="{{ path('app_user_new') }}">Register</a>.
+                    </div>
+                {% endif %}
+
+                <a href="{{ path('posts_home') }}" class="btn btn-secondary mt-4">Back to Home</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

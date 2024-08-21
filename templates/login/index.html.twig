@@ -1,0 +1,49 @@
+{# templates/login/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% set show_navbar = false %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Login</h1>
+        <div class="d-flex justify-content-center">
+            <div class="card p-4" style="width: 100%; max-width: 500px;">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+                
+                <form action="{{ path('app_login') }}" method="post">
+                    <div class="form-group">
+                        <label for="username">Email:</label>
+                        <input type="text" id="username" name="_username" value="{{ last_username }}" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <div class="input-group">
+                            <input type="password" id="password-field" name="_password" required class="form-control">
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary" data-toggle="password" data-target="password-field">
+                                    <i class="bi bi-eye-slash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <input type="hidden" name="_target_path" value="/post">
+                
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                </form>                
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <a href="{{ path('posts_home') }}" class="btn btn-secondary">Back to home</a>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/togglePassword.js') }}"></script>
+{% endblock %}
+
+

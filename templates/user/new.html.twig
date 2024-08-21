@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% set show_navbar = false %}
+
+{% block title %}New User{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Register</h1>
+        <div class="d-flex justify-content-center">
+            <div class="card p-4" style="width: 100%; max-width: 500px;">
+                {{ include('user/_form.html.twig') }}
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <a href="{{ path('posts_home') }}" class="btn btn-secondary">Back to home</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+

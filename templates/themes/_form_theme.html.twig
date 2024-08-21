@@ -1,0 +1,18 @@
+{# templates/form/form_theme.html.twig #}
+{% block form_row %}
+    <div class="form-group">
+        {{ form_label(form) }}
+        <div class="form-input">
+            {{ form_widget(form) }}
+            {{ form_errors(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block form_label %}
+    <label class="form-label" for="{{ id }}">{{ label|default('') }}</label>
+{% endblock %}
+
+{% block form_widget_simple %}
+    <input type="{{ type|default('text') }}" {{ block('widget_attributes') }} value="{{ value }}" class="form-control"/>
+{% endblock %}

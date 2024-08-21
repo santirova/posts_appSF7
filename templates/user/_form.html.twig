@@ -1,0 +1,38 @@
+{# formulario por defecto que crea make:crud #}
+
+{# {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }} #}
+
+{# formulario personalizado para poder estilar #}
+{{ form_start(form) }}
+    <div class="form-group">
+        {{ form_label(form.email, 'Email') }}
+        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.password, 'Password') }}
+        <div class="input-group">
+            {{ form_widget(form.password, {'attr': {'class': 'form-control', 'id': 'password-field'}}) }}
+            <div class="input-group-append">
+                <button type="button" class="btn btn-outline-secondary" data-toggle="password" data-target="user_password">
+                    <i class="bi bi-eye-slash"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.photo, 'Photo') }}
+        {{ form_widget(form.photo, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.description, 'Description') }}
+        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <button class="btn btn-primary btn-block">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+
+{% block javascripts %}
+    <script src="{{ asset('js/togglePassword.js') }}"></script>
+{% endblock %}

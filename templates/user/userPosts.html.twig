@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+    <a href="{{path('my_user')}}">
+        <i class="bi bi-arrow-left-circle-fill"></i>
+    </a>
+    <h1 class="my-4">My Posts</h1>
+    <div class="card-container mt-2">
+        {% for post in userPosts %}
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title">{{ post.title }}</h2>
+                    <p class="card-text">{{ post.description }}</p>
+                    {% if post.file %}
+                        <img src="{{ asset('uploads/posts/' ~ post.file) }}" alt="{{ post.title }}" class="img-fluid mb-3">
+                    {% endif %}
+                    <p class="text-muted">Published on: {{ post.creation_date|date("m/d/Y") }}</p>
+                    <a href="{{ path('postDetail', {'id': post.id}) }}" class="btn btn-primary">
+                        Read More
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="navigation">
+        {{ knp_pagination_render(userPosts) }}
+    </div>
+{% endblock %}

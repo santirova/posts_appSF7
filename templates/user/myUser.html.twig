@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+    <h1>My user</h1>
+    {{ dump(user) }}
+    <a href="{{ path('user_posts') }}" class="btn btn-primary">
+        My Posts
+    </a>
+{% endblock %}
